@@ -1,0 +1,15 @@
+Be thoughtful and efficient with memory in the average case. A solution involving an array of 10 million Boolean values is not considered efficient with memory. It may be possible for an application to “Allocate” all ten million available numbers from the pool, but this may be an extreme case. In the average case, far fewer will be allocated, but the allocation/release call patterns may vary widely.
+
+Can you keep the memory allocation under 1 MB in the average case?
+
+Can you make your code scale to handle the extreme case while still keeping good run-time performance and reasonable memory usage?
+
+Along with your solution, please also provide your thoughts on the following:
+
+What other solutions did you consider and why did you select the presented solution? What are the pros and cons or tradeoffs of your solution?
+
+What tradeoffs did you choose not to make?
+
+How would you modify your solution if memory was not an issue? Why?
+
+How would you characterize the performance of your implementation in the average and extreme cases?
