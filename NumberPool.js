@@ -39,22 +39,6 @@
 //     console.log('panda');
 // }
 
-// var NumberPool = Object.create(BasePool, {
-//     // allocate: {
-//     //     value: allocate,
-//     // },
-//     // release: {
-//     //     value: release,
-//     // },
-//     type: {
-//         value: function type() {
-//             return "NumberPool";
-//         }
-//     }
-// });
-
-// NumberPool.prototype = BasePool;
-//--------------------------------------------------------
 BasePool = require('./BasePool');
 
 module.exports = (function() {
@@ -68,13 +52,11 @@ module.exports = (function() {
     }
     NumberPool.prototype.allocate = function allocate() {
         BasePool.allocate.call(this);
-        // console.log('sad');
     }
     NumberPool.prototype.release = function release() {
         BasePool.release.call(this);
-        // console.log('panda');
     }
-    NumberPool.prototype.type = function type() {
+    NumberPool.prototype.getType = function getType() {
         return "NumberPool";
     };
 
