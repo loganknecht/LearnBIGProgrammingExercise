@@ -53,13 +53,22 @@ module.exports = (function() {
         return this.getBounds()[1];
     };
     NumberPool.prototype.allocate = function allocate() {
-        BasePool.prototype.allocate.call(this);
         // The Allocate method picks an available value from the pool, removes it
         // from the pool, and returns this value to the caller.If the pool of 
         // available numbers is empty, the Allocate method returns 0.
-        return 0;
+        var pool = this.getPool();
+        var value_to_return = null;
+        if(pool.length == 0) {
+            throw new Error('Pool length is: ' + pool.length + '. Cannot allocate on a pool with no values.');
+        }
+        value_to_return = pool.shift(); // undefined if empty
+        return value_to_return;
     };
     NumberPool.prototype.release = function release(x) {
+        if(x === 0) {
+            throw new RangeError('Cannot release "0" as that value is not allowed to exist in the NumberPool class.');
+        }
+
         BasePool.prototype.release.call(this, x);
         // The Release method adds an available number value back to the pool. If 
         // the value is successfully added back to the pool, Release returns true.
