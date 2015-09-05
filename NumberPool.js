@@ -1,5 +1,9 @@
 // TODO: provide naming syntax clarity. snake_style for vars, camelCase for methods, and pascalCase for classes
 var BasePool = require('./BasePool');
+var searchAlgorithms = require('algorithms')
+    .Search;
+var sortingAlgorithms = require('algorithms')
+    .Sorting;
 
 module.exports = (function() {
     function NumberPool(start_range, end_range) {
@@ -42,6 +46,8 @@ module.exports = (function() {
             }
         }
         this.setPool(new_pool);
+        // sorting is not performed on the array because it assumes that the 
+        // creation of the array made it already sorted.
     }
     NumberPool.prototype.getBounds = function getBounds() {
         return this.bounds;
@@ -52,28 +58,53 @@ module.exports = (function() {
     NumberPool.prototype.getMaxBoundary = function getMinBoundary() {
         return this.getBounds()[1];
     };
+    /**
+     * [allocate 
+     * The Allocate method picks an available value from the pool, removes it 
+     * from the pool, and returns this value to the caller.If the pool of 
+     * available numbers is empty, the Allocate method returns 0. ]
+     * @return {[Number]} [Returns an arbitrarily selected number from the pool.]
+     */
     NumberPool.prototype.allocate = function allocate() {
-        // The Allocate method picks an available value from the pool, removes it
-        // from the pool, and returns this value to the caller.If the pool of 
-        // available numbers is empty, the Allocate method returns 0.
         var pool = this.getPool();
         var value_to_return = null;
         if(pool.length == 0) {
             throw new Error('Pool length is: ' + pool.length + '. Cannot allocate on a pool with no values.');
         }
-        value_to_return = pool.shift(); // undefined if empty
+        value_to_return = pool.shift(); // no selection method was specified
         return value_to_return;
     };
+    /**
+     * [release 
+     * The Release method adds an available number value back to the pool. If 
+     * the value is successfully added back to the pool, Release returns true.
+     * If the value is already in the pool, then false is returned. ]
+     * @param  {[Number]} x [ The value to release. ]
+     * @return {[bool]}   [ If the value was successfully released. ]
+     */
     NumberPool.prototype.release = function release(x) {
+        var operation_successful = true;
         if(x === 0) {
-            throw new RangeError('Cannot release "0" as that value is not allowed to exist in the NumberPool class.');
+            throw new RangeError('Cannot release "0" as that value is not allowed to exist in the NumberPool class, due to the allocate function\'s expected return values');
+        }
+        if(!_.isNumber(x) || x % 1 != 0) {
+            throw new Error('The x parameter for the release function must be of a Number type, more specifically it must be a whole integer. Please fix this and try again.\nX Parameter: ' + x);
         }
 
-        BasePool.prototype.release.call(this, x);
-        // The Release method adds an available number value back to the pool. If 
-        // the value is successfully added back to the pool, Release returns true.
-        // If the value is already in the pool, then false is returned.
-        return false
+        var value_in_pool = this.searchPool(this.getPool(), x);
+        if(!value_in_pool) {
+            this.getPool()
+                .push(x);
+        }
+        else {
+            operation_successful = false;
+        }
+        // This sorts the array in order to guarantee that the next time a release
+        // or mutation is performed that it can access the element's location via
+        // binary search in O(logn) time.
+        this.sortPool(this.getPool());
+
+        return operation_successful;
     };
     NumberPool.prototype.setPool = function setPool(new_pool) {
         BasePool.prototype.setPool.call(this, new_pool);
@@ -81,8 +112,17 @@ module.exports = (function() {
     NumberPool.prototype.getPool = function getPool() {
         return BasePool.prototype.getPool.call(this);
     };
-    NumberPool.prototype.searchPool = function searchPool(object_to_search_for) {
-        // returns true for found, false for did not
+    NumberPool.prototype.searchPool = function searchPool(pool_to_search, object_to_search_for) {
+        // Checks if the pool already has it, assumes it is already
+        if(searchAlgorithms.binarySearch(pool_to_search, object_to_search_for) != -1) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    };
+    NumberPool.prototype.sortPool = function sortPool(pool_to_sort) {
+        sortingAlgorithms.quicksort(pool_to_sort);
     };
     NumberPool.prototype.getType = function getType() {
         return 'NumberPool';

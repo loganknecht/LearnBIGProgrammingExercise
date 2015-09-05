@@ -7,7 +7,7 @@ module.exports = (function() {
     BasePool.prototype = {};
     BasePool.prototype.constructor = BasePool;
     BasePool.prototype.initialize = function initialize() {
-        this.pool = [];
+        this.setPool([]);
     };
     BasePool.prototype.allocate = function allocate() {
         throw Error(this.getType() + ' has extended the "BasePool" class without overriding the "allocate" function. Please assign this function correctly in the new sub-class "' + this.getType() + '".');
@@ -23,6 +23,9 @@ module.exports = (function() {
     };
     BasePool.prototype.searchPool = function searchPool(object_to_search_for) {
         throw Error(this.getType() + ' has extended the "BasePool" class without overriding the "searchPool" function. Please assign this function correctly in the new sub-class "' + this.getType() + '".');
+    };
+    BasePool.prototype.sortPool = function sortPool(pool_to_sort) {
+        throw Error(this.getType() + ' has extended the "BasePool" class without overriding the "sortPool" function. Please assign this function correctly in the new sub-class "' + this.getType() + '".');
     };
     BasePool.prototype.getType = function getType() {
         return 'BasePool';
