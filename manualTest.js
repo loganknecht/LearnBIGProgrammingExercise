@@ -1,3 +1,10 @@
 var NumberPool = require('./NumberPool');
-var numberPool = new NumberPool();
-numberPool.printDebug();
+// var numberPool = new NumberPool(1, 10000000);
+var numberPool = new NumberPool(-5, 5);
+var numberPool = new NumberPool(-50, 50);
+// var numberPool = new NumberPool(-500, 500);
+// var numberPool = new NumberPool(-5000, 5000);
+// var numberPool = new NumberPool(-50000, 50000);
+var numberPool = new NumberPool(1, 5);
+// numberPool.printDebug();
+// numberPool.allocate(0);
