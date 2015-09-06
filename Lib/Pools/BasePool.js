@@ -1,4 +1,5 @@
-var debugTools = require('./DebugTools');
+var debugTools = require('../DebugTools/DebugTools');
+var _ = require('lodash');
 
 module.exports = (function() {
     function BasePool() {
@@ -16,6 +17,9 @@ module.exports = (function() {
         throw Error(this.getType() + ' has extended the "BasePool" class without overriding the "release" function. Please assign this function correctly in the new sub-class "' + this.getType() + '".');
     };
     BasePool.prototype.setPool = function setPool(new_pool) {
+        if(!_.isArray(new_pool)) {
+            throw new TypeError('Set pool can only accept arrays.');
+        }
         this.pool = new_pool;
     };
     BasePool.prototype.getPool = function getPool() {

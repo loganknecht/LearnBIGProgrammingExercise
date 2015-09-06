@@ -1,0 +1,28 @@
+{
+    "name": "lbpe",
+    "version": "1.0.0",
+    "description": "This is the LearnBIG programming exercise that was given to me during my September 2015 interview with them.",
+    "main": "manualTest.js",
+    "dependencies": {
+        "algorithms": "^0.9.1",
+        "lodash": "^3.10.1"
+    },
+    "devDependencies": {
+        "mocha": "^2.3.0",
+        "chai": "^3.2.0"
+    },
+    "scripts": {
+        "start": "node manualTest",
+        "test": "node_modules/.bin/mocha Tests"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/loganknecht/LearnBIGProgrammingExercise.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/loganknecht/LearnBIGProgrammingExercise/issues"
+    },
+    "homepage": "https://github.com/loganknecht/LearnBIGProgrammingExercise#readme"
+}
