@@ -1,6 +1,5 @@
 var assert = require("chai")
     .assert;
-// var expect = require("expect");
 var BasePool = require("../Lib/Pools/BasePool");
 
 describe('BasePool', function() {
@@ -52,7 +51,7 @@ describe('BasePool', function() {
             it('is an array', function() {
                 assert.isArray(basePool.getPool());
             });
-            it('is an empty array', function() {
+            it('is empty', function() {
                 assert.lengthOf(basePool.getPool(), 0);
             });
         });
@@ -89,10 +88,10 @@ describe('BasePool', function() {
             });
         });
         describe('#getType()', function() {
-            it('is only a string', function() {
+            it('is a string', function() {
                 assert.isString(basePool.getType(), 'is string');
             });
-            it('is BasePool', function() {
+            it('is the string "BasePool"', function() {
                 assert.strictEqual(basePool.getType(), 'BasePool', 'must be BasePool');
             });
         });
