@@ -9,6 +9,9 @@ describe('BasePool', function() {
             // Fresh object every time
             basePool = new BasePool();
         });
+        describe('#constructor()', function() {
+            // do nothing, it doesn't have anything that should need to be validated
+        });
         describe('#allocate()', function() {
             it('should only throw an error', function() {
                 assert.throws(function() {

@@ -13,7 +13,7 @@
     },
     "scripts": {
         "start": "node manualTest",
-        "test": "node_modules/.bin/mocha Tests"
+        "test": "node_modules/.bin/mocha --grep NumberPoolTests.js"
     },
     "repository": {
         "type": "git",

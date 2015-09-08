@@ -5,7 +5,7 @@ _ = require('lodash');
 module.exports = {
     printPrototypeChain: function printPrototypeChain(obj) {
         // This conditional is used because I want it to call the getType method
-        // as long as it exists, not just for the object that contains it.
+        // as long as it exists, not just for the top-level object that contains it.
         if(!_.isNull(obj)) {
             var objectName = "Object";
             if('getType' in obj) {
