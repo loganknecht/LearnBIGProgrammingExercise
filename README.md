@@ -2,12 +2,17 @@
 This is the LearnBIG programming exercise that was given to me during my September 2015 interview with them.
 
 # Overview
-This exercise assignment specification can be reviewed in a more thorough fashion via the Requirements folder that was created. In there is are stored three files:
+This exercise assignment specification can be reviewed in a more thorough fashion via the Requirements folder that was created. In there are three files:
 * **Engineering Homework Assignment.pdf** - Explains task in-depth
 * **Post-Mortem Questions.txt** - Explains questions to address after exercise
 * **NumberPoolContract.cpp** - This is the contract for the module specified from within the pdf file
 
 # How To Run the Code
+```bash
+# Get Other Modules
+npm install
+```
+
 ```bash
 # Run Example Program
 npm start
@@ -42,14 +47,14 @@ bool NumberPool::Release(int x) {
 ```
 
 # Beginning thought-process
-At a high-level this is a fairly standard exercise. I have implemented a pooling system for my video game projects multiple times in order to conserve resources, recycle gameplay components for performants, and to make it so that object creation does not occur until it's actually needed.
+At a high-level this is a fairly standard exercise. I have implemented a pooling system for my video game projects multiple times in order to conserve resources, recycle gameplay components for performance, and to make it so that object creation does not occur until it's actually needed.
 
 This assignment is fairly simple. Create a NumberPool class that demonstrates the method signatures provided. I found the problem pretty uninteresting. So in an effort to make this project more interesting I decided to try and demonstrate several areas of coding competence with respect to the language, programming patterns, testing, and more complex algorithms.
 
 ## Areas of Concern
 ### Method Signatures and The Allocate Function
 First - Whoever designed these signatures did a very poor job in planning for it. 
-> The Allocate method picks an available value from the pool, removes it from the pool, and returns this value to the caller.If the pool of available numbers is empty, the Allocate method returns 0.
+> The Allocate method picks an available value from the pool, removes it from the pool, and returns this value to the caller. If the pool of available numbers is empty, the Allocate method returns 0.
 
 So a method that expects a function to return a number is also expecting its error output to be a number as well for the empty list. That's poor design. My suggestion would to make it so that it returns one form of infinity. This is because infinity is greater and less than any boundary condition and in returning that number you're guaranteed not to overlap with an actual number. For javascript it would be **Number.POSITIVE_INFINITY**. An alternative to this would be to throw an error when the list is empty. But that seems more like it's punishing the developer.
 
