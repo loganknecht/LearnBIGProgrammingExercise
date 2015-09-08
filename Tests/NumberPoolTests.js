@@ -5,7 +5,7 @@ var NumberPool = require("../Lib/Pools/NumberPool");
 describe('NumberPool', function() {
     context('on creation', function() {
         // Initialized once for faster test coverage
-        var numberPool = new NumberPool(1, 10000000);
+        var numberPool = new NumberPool(1, 10);
         describe('#constructor', function() {
             it('should only accept number for first parameter', function() {
                 assert.throws(function() {
@@ -44,8 +44,18 @@ describe('NumberPool', function() {
             });
         });
         describe('#allocate()', function() {
-            it('should throw an error', function() {
-                assert.throws(numberPool.allocate, Error);
+            before(function() {
+                numberPool.initialize(1, 3);
+            });
+            it('should return the correct allocate values', function() {
+                assert.strictEqual(numberPool.allocate(), 1);
+                assert.strictEqual(numberPool.allocate(), 2);
+                assert.strictEqual(numberPool.allocate(), 3);
+            });
+            it('should return 0 when empty', function() {
+                assert.strictEqual(numberPool.allocate(), 0);
+                assert.strictEqual(numberPool.allocate(), 0);
+                assert.strictEqual(numberPool.allocate(), 0);
             });
         });
         describe('#release()', function() {
@@ -93,48 +103,22 @@ describe('NumberPool', function() {
             });
         });
         describe('#getPool()', function() {
-            // before(function() {
-            // });
             it('is an array', function() {
                 assert.isArray(numberPool.getPool());
             });
-            it('is empty', function() {
-                numberPool.initialize(1, 10000000);
-                assert.lengthOf(numberPool.getPool(), 10000000);
+        });
+        describe('#searchPool()', function() {
+            it('should be tested by its own library.', function() {
+                // Searching shouldn't really be tested as this relies on an external
+                // library and they should be responsible for their testing
             });
         });
-        // describe('#searchPool()', function() {
-        // it('only throws an error', function() {
-        //     assert.throws(function() {
-        //         numberPool.searchPool(0);
-        //     }, Error);
-        //     assert.throws(function() {
-        //         numberPool.searchPool('lol');
-        //     }, Error);
-        //     assert.throws(function() {
-        //         numberPool.searchPool([]);
-        //     }, Error);
-        //     assert.throws(function() {
-        //         numberPool.searchPool(function() { return 0; });
-        //     }, Error);
-        // });
-        // });
-        // describe('#sortPool()', function() {
-        // it('only throws an error', function() {
-        //     assert.throws(function() {
-        //         numberPool.searchPool(0);
-        //     }, Error);
-        //     assert.throws(function() {
-        //         numberPool.searchPool('lol');
-        //     }, Error);
-        //     assert.throws(function() {
-        //         numberPool.searchPool([]);
-        //     }, Error);
-        //     assert.throws(function() {
-        //         numberPool.searchPool(function() { return 0; });
-        //     }, Error);
-        // });
-        // });
+        describe('#sortPool()', function() {
+            it('should be tested by its own library.', function() {
+                // Sorting shouldn't really be tested as this relies on an external
+                // library and they should be responsible for their testing
+            });
+        });
         describe('#getType()', function() {
             it('is a string', function() {
                 assert.isString(numberPool.getType(), 'is string');

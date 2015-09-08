@@ -1,13 +1,3 @@
-// TODO: provide naming syntax clarity. snake_style for vars, camelCase for methods, and pascalCase for classes
-// TODO: Refactor this so that the array isn't initialized by default, but 
-// rather it just initialized the array to the desired length. Then whenever 
-// allocate is called it checks in the list that houses all the objects that are
-// checked out. These are called pool objects. It will iterate over the pool 
-// objects selecting the first element that it comes across as undefined or available
-// If undefined, it makes the object at the specified index, and then returns the
-// object, marking it as checked out. On release the search procedure checks for the 
-// object in the pool, if it finds it, it performs the release validation. If it 
-// doesn't it creates the object in the correct index and then sets it able to be checked out
 var BasePool = require('./BasePool');
 var searchAlgorithms = require('algorithms')
     .Search;
@@ -58,15 +48,16 @@ module.exports = (function() {
             back_index += (zero_in_range && (end_range - i < 0)) ? 1 : 0;
             var back_value = end_range - i;
             if(start_range + i !== 0) {
-                new_pool[front_index] = front_value; // front index
+                new_pool[front_index] = front_value;
             }
             if(end_range - i !== 0) {
-                new_pool[back_index] = back_value; // back index
+                new_pool[back_index] = back_value;
             }
         }
         this.setPool(new_pool);
         // sorting is not performed on the array because it assumes that the 
-        // creation of the array made it already sorted.
+        // creation of the array made it already sorted. Otherwise sortPool 
+        // would be called.
     }
     NumberPool.prototype.getBounds = function getBounds() {
         return this.bounds;
@@ -80,19 +71,20 @@ module.exports = (function() {
     /**
      * [allocate 
      * The Allocate method picks an available value from the pool, removes it 
-     * from the pool, and returns this value to the caller.If the pool of 
+     * from the pool, and returns this value to the caller. If the pool of 
      * available numbers is empty, the Allocate method returns 0. ]
      * @return {[Number]} [Returns an arbitrarily selected number from the pool.]
      */
     NumberPool.prototype.allocate = function allocate() {
         var pool = this.getPool();
-        var value_to_return = null;
-        if(pool.length == 0) {
-            throw new Error('Pool length is: ' + pool.length + '. Cannot allocate on a pool with no values.');
+        var value_to_return = 0;
+        if(pool.length != 0) {
+            value_to_return = pool.shift(); // no selection method was specified
         }
-        value_to_return = pool.shift(); // no selection method was specified
+
         return value_to_return;
     };
+
     /**
      * [release 
      * The Release method adds an available number value back to the pool. If 
