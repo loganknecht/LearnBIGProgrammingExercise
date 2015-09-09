@@ -75,7 +75,7 @@ Javascript
 * **algorithms** - Used in order to have access to quicksort, and binary search, because I didn't want to rewrite them.
 * **chai** - Used as the assertion library for mocha
 * **lodash** - Used for handling type checking, and basic utility features
-* **mocha** - Used for the test framework
+* **mocha** - Used for the test framework  
 ## Style Guidles 
 Snake Case is used for local variables and objects.  
 Camel Case is used for class definitions.  
